@@ -78,6 +78,16 @@ function movePlayer(e) {
     }
 }
 
-document.addEventListener("click", () => {});
+document.addEventListener("click", (e) => {
+    var mouseX = e.clientX;
+    var mouseY = e.clientY;
+    console.log(canvWidth);
+    console.log(mouseX);
+    for (let i = 131; i < 191; i++) {
+        if ((mouseX == canvWidth - 2) && (mouseY == canvHeight - i)) {
+            alert("Door");
+        }
+    }
+});
 
 start();
