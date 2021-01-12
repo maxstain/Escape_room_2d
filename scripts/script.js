@@ -6,10 +6,15 @@ var x = canvWidth / 2;
 var y = canvHeight / 2;
 var dx = 2;
 var dy = 2;
+var player = {
+    x: this.x,
+    y: this.y,
+    inventory: [],
+};
 
 function start() {
     create();
-    draw(x, y);
+    draw(player.x, player.y);
     setTimeout(() => {
         start();
     }, 10);
@@ -47,30 +52,32 @@ function movePlayer(e) {
     var key = e.key;
     switch (key) {
         case "ArrowUp": {
-            if (y != 0) {
-                y -= dy;
+            if (player.y != 0) {
+                player.y -= dy;
             }
             break;
         }
         case "ArrowLeft": {
-            if (x != 0) {
-                x -= dx;
+            if (player.x != 0) {
+                player.x -= dx;
             }
             break;
         }
         case "ArrowDown": {
-            if (y != canvHeight - 20) {
-                y += dy;
+            if (player.y != canvHeight - 20) {
+                player.y += dy;
             }
             break;
         }
         case "ArrowRight": {
-            if (x != canvWidth - 20) {
-                x += dx;
+            if (player.x != canvWidth - 20) {
+                player.x += dx;
             }
             break;
         }
     }
 }
+
+document.addEventListener("click", () => {});
 
 start();
