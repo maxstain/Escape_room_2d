@@ -11,6 +11,15 @@ var player = {
     y: this.y,
     inventory: [],
 };
+var cabinet = {
+    x: canvWidth / 2 - 20,
+    y: 0,
+    w: 60,
+    h: 40,
+    inventory: ["wiskey", "key", "knife"],
+}
+
+console.log(player.inventory);
 
 function start() {
     create();
@@ -28,8 +37,8 @@ function clear() {
 
 function create() {
     ctx.fillStyle = 'red';
-    ctx.fillRect(canvWidth / 2 - 20, 0, 60, 40);
-    ctx.strokeRect(canvWidth / 2 - 20, 0, 60, 40);
+    ctx.fillRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
+    ctx.strokeRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
     ctx.fillStyle = 'green';
     ctx.fillRect(0, canvHeight / 2 - 20, 40, 60);
     ctx.strokeRect(0, canvHeight / 2 - 20, 40, 60);
@@ -76,11 +85,32 @@ function movePlayer(e) {
             break;
         }
     }
+    if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem == "key"))) {
+        for (let i = 0; i < cabinet.inventory.length; i++) {
+            player.inventory.push(cabinet.inventory[i]);
+        }
+        cabinet.inventory.splice(0, cabinet.inventory.length);
+        console.log(cabinet.inventory);
+        console.log(player.inventory);
+        alert("You have picked up a key");
+    }
+    for (let i = 131; i < 191; i++) {
+        if ((player.x + 80 == canvWidth - 2) && (player.y == canvHeight - i)) {
+            if (player.inventory.find(elem => elem == "key")) {
+                alert("You have escaped successfully");
+                document.location.href = "../finish.html";
+            } else {
+                alert("Door is locked");
+            }
+        }
+    }
 }
 
 document.addEventListener("click", (e) => {
     var mouseX = e.clientX;
     var mouseY = e.clientY;
+    console.log(mouseX);
+    console.log(mouseY);
     for (let i = 131; i < 191; i++) {
         if ((mouseX == canvWidth - 2) && (mouseY == canvHeight - i)) {
             if (player.inventory.find(elem => elem == "key")) {
