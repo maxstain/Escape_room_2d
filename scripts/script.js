@@ -9,7 +9,7 @@ var dy = 2;
 var player = {
     x: this.x,
     y: this.y,
-    inventory: ["key"],
+    inventory: [],
 };
 
 function start() {
@@ -78,10 +78,6 @@ function movePlayer(e) {
     }
 }
 
-function gameOver() {
-    document.location.href = "../finish.html";
-}
-
 document.addEventListener("click", (e) => {
     var mouseX = e.clientX;
     var mouseY = e.clientY;
@@ -89,7 +85,7 @@ document.addEventListener("click", (e) => {
         if ((mouseX == canvWidth - 2) && (mouseY == canvHeight - i)) {
             if (player.inventory.find(elem => elem == "key")) {
                 alert("You have escaped successfully");
-                gameOver();
+                document.location.href = "../finish.html";
             } else {
                 alert("Door is locked");
             }
