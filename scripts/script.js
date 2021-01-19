@@ -95,7 +95,7 @@ function movePlayer(e) {
         alert("You have picked up a key");
     }
     for (let i = 131; i < 191; i++) {
-        if ((player.x + 80 == canvWidth - 2) && (player.y == canvHeight - i)) {
+        if ((player.x + 20 == canvWidth) && (player.y == canvHeight - i)) {
             if (player.inventory.find(elem => elem == "key")) {
                 alert("You have escaped successfully");
                 document.location.href = "../finish.html";
@@ -109,8 +109,8 @@ function movePlayer(e) {
 document.addEventListener("click", (e) => {
     var mouseX = e.clientX;
     var mouseY = e.clientY;
-    console.log(mouseX);
-    console.log(mouseY);
+    console.log(player.x + 20);
+    console.log(canvWidth);
     for (let i = 131; i < 191; i++) {
         if ((mouseX == canvWidth - 2) && (mouseY == canvHeight - i)) {
             if (player.inventory.find(elem => elem == "key")) {
