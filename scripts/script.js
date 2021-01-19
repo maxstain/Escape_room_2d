@@ -158,11 +158,9 @@ function movePlayer(e) {
     }
 }
 
-document.addEventListener("click", (e) => {
+/* document.addEventListener("click", (e) => {
     var mouseX = e.clientX;
     var mouseY = e.clientY;
-    console.log(player.x + 20);
-    console.log(canvWidth);
     for (let i = 131; i < 191; i++) {
         if ((mouseX == canvWidth - 2) && (mouseY == canvHeight - i)) {
             if (player.inventory.find(elem => elem == "key")) {
@@ -173,6 +171,6 @@ document.addEventListener("click", (e) => {
             }
         }
     }
-});
+}); */
 
 start();
