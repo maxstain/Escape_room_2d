@@ -19,6 +19,13 @@ var cabinet = {
     inventory: ["wiskey", "key", "knife"],
 }
 
+var table = {
+    x: 0,
+    y: canvHeight / 2 - 20,
+    w: 40,
+    h: 60,
+}
+
 let msg = "";
 
 console.log(player.inventory);
@@ -59,8 +66,9 @@ function create() {
     ctx.strokeRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
     ctx.fillText("Cabinet", cabinet.x + 10, cabinet.h + 10)
     ctx.fillStyle = 'green';
-    ctx.fillRect(0, canvHeight / 2 - 20, 40, 60);
-    ctx.strokeRect(0, canvHeight / 2 - 20, 40, 60);
+    ctx.fillRect(table.x, table.y, table.w, table.h);
+    ctx.strokeRect(table.x, table.y, table.w, table.h);
+    ctx.fillText("Table", 5, canvHeight / 2 - 25);
     ctx.fillStyle = 'brown';
     ctx.fillRect(canvWidth - 10, canvHeight / 2 - 20, 10, 60);
     ctx.strokeRect(canvWidth - 10, canvHeight / 2 - 20, 10, 60);
