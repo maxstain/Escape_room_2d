@@ -19,6 +19,8 @@ var cabinet = {
     inventory: ["wiskey", "key", "knife"],
 }
 
+let msg = "";
+
 console.log(player.inventory);
 
 function start() {
@@ -55,12 +57,16 @@ function create() {
     ctx.fillStyle = 'red';
     ctx.fillRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
     ctx.strokeRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
+    ctx.fillText("Cabinet", cabinet.x + 10, cabinet.h + 10)
     ctx.fillStyle = 'green';
     ctx.fillRect(0, canvHeight / 2 - 20, 40, 60);
     ctx.strokeRect(0, canvHeight / 2 - 20, 40, 60);
     ctx.fillStyle = 'brown';
     ctx.fillRect(canvWidth - 10, canvHeight / 2 - 20, 10, 60);
     ctx.strokeRect(canvWidth - 10, canvHeight / 2 - 20, 10, 60);
+    ctx.fillText("Door", canvWidth - 30, canvHeight / 2 - 25);
+    ctx.fillStyle = "black";
+    ctx.fillText(msg, canvWidth - 200, 20);
 }
 
 function draw(x, y) {
@@ -102,13 +108,20 @@ function movePlayer(e) {
         }
     }
     if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem == "key"))) {
-        for (let i = 0; i < cabinet.inventory.length; i++) {
-            player.inventory.push(cabinet.inventory[i]);
+        ans = prompt("what's the secret code ?")
+        if (ans == 33070) {
+            for (let i = 0; i < cabinet.inventory.length; i++) {
+                player.inventory.push(cabinet.inventory[i]);
+            }
+            cabinet.inventory.splice(0, cabinet.inventory.length);
+            msg = "You have picked up a key";
+        } else {
+            msg = "Wrong answer, try again"
         }
-        cabinet.inventory.splice(0, cabinet.inventory.length);
+        console.log("Cabinet: ");
         console.log(cabinet.inventory);
+        console.log("Player: ");
         console.log(player.inventory);
-        alert("You have picked up a key");
     }
     for (let i = 131; i < 191; i++) {
         if ((player.x + 20 == canvWidth) && (player.y == canvHeight - i)) {
