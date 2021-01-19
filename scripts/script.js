@@ -24,9 +24,25 @@ console.log(player.inventory);
 function start() {
     create();
     draw(player.x, player.y);
+    drawInv(player.inventory);
     setTimeout(() => {
         start();
     }, 10);
+}
+
+function drawInv(inv) {
+    let x = 0;
+    let y = 0;
+    const pad = 40;
+    inv.forEach(elem => {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(x, y, pad, pad);
+        ctx.strokeRect(x, y, pad, pad);
+        ctx.font = "bold";
+        ctx.fillStyle = "black";
+        ctx.fillText(elem, x + 10, y + 20, pad - 10);
+        x += pad;
+    });
 }
 
 function clear() {
