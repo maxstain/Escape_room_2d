@@ -9,6 +9,8 @@ var dy = 2;
 var player = {
     x: this.x,
     y: this.y,
+    w: 20,
+    h: 20,
     inventory: [],
 };
 var cabinet = {
@@ -26,13 +28,20 @@ var table = {
     h: 60,
 }
 
-let msg = "";
+var door = {
+    x: canvWidth - 10,
+    y: canvHeight / 2 - 20,
+    w: 10,
+    h: 60,
+}
+
+let msg = "Search the place for clues to find the key to open the door";
 
 console.log(player.inventory);
 
 function start() {
     create();
-    draw(player.x, player.y);
+    draw(player.x, player.y, player.w, player.h);
     drawInv(player.inventory);
     setTimeout(() => {
         start();
@@ -70,19 +79,19 @@ function create() {
     ctx.strokeRect(table.x, table.y, table.w, table.h);
     ctx.fillText("Table", 5, canvHeight / 2 - 25);
     ctx.fillStyle = 'brown';
-    ctx.fillRect(canvWidth - 10, canvHeight / 2 - 20, 10, 60);
-    ctx.strokeRect(canvWidth - 10, canvHeight / 2 - 20, 10, 60);
+    ctx.fillRect(door.x, door.y, door.w, door.h);
+    ctx.strokeRect(door.x, door.y, door.w, door.h);
     ctx.fillText("Door", canvWidth - 30, canvHeight / 2 - 25);
     ctx.fillStyle = "black";
-    ctx.fillText(msg, canvWidth - 200, 20);
+    ctx.fillText(msg, 10, canvHeight - 10);
 }
 
-function draw(x, y) {
+function draw(x, y, w, h) {
     clear();
     create();
     ctx.fillStyle = 'blue';
-    ctx.fillRect(x, y, 20, 20);
-    ctx.strokeRect(x, y, 20, 20);
+    ctx.fillRect(x, y, w, h);
+    ctx.strokeRect(x, y, w, h);
 }
 
 document.addEventListener('keydown', movePlayer);
@@ -131,13 +140,19 @@ function movePlayer(e) {
         console.log("Player: ");
         console.log(player.inventory);
     }
+    if (player.x == table.x && player.y == table.y) {
+        alert("The code is 33070");
+        msg = "you have found a clue";
+    }
     for (let i = 131; i < 191; i++) {
-        if ((player.x + 20 == canvWidth) && (player.y == canvHeight - i)) {
+        if ((player.x + player.w == door.x + door.w) && (player.y == door.y)) {
             if (player.inventory.find(elem => elem == "key")) {
                 alert("You have escaped successfully");
                 document.location.href = "../finish.html";
+                break;
             } else {
                 alert("Door is locked");
+                break;
             }
         }
     }
