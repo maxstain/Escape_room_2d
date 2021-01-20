@@ -50,17 +50,24 @@ function start() {
 
 function drawInv(inv) {
     let x = 0;
-    let y = 0;
+    let y = 20;
     const pad = 40;
-    inv.forEach(elem => {
-        ctx.fillStyle = 'white';
-        ctx.fillRect(x, y, pad, pad);
-        ctx.strokeRect(x, y, pad, pad);
-        ctx.font = "bold";
-        ctx.fillStyle = "black";
-        ctx.fillText(elem, x + 10, y + 20, pad - 10);
-        x += pad;
-    });
+    ctx.fillStyle = "black";
+    ctx.font = "15px";
+    ctx.fillText("Inventory:", 5, 15, 120);
+    if (inv.length <= 0) {
+        ctx.fillText("Empty", 5, 30, 120);
+    } else {
+        inv.forEach(elem => {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(x, y, pad, pad);
+            ctx.strokeRect(x, y, pad, pad);
+            ctx.font = "bold";
+            ctx.fillStyle = "black";
+            ctx.fillText(elem, x + 10, y + 20, pad - 10);
+            x += pad;
+        });
+    }
 }
 
 function clear() {
