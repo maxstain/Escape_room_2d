@@ -6,6 +6,7 @@ var x = canvWidth / 2;
 var y = canvHeight / 2;
 var dx = 2;
 var dy = 2;
+var image = new Image();
 var player = {
     x: this.x,
     y: this.y,
@@ -19,6 +20,7 @@ var cabinet = {
     w: 60,
     h: 40,
     inventory: ["wiskey", "key", "knife"],
+    image: "../assets/ER_Cabinet.png",
 }
 
 var table = {
@@ -74,13 +76,16 @@ function clear() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvWidth, canvHeight);
     ctx.strokeRect(0, 0, canvWidth, canvHeight);
+    //ctx.drawImage("../assets/ER_Floor.png",0,0,canvWidth,canvHeight);
 }
 
 function create() {
     ctx.fillStyle = 'red';
     ctx.fillRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
     ctx.strokeRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
-    ctx.fillText("Cabinet", cabinet.x + 10, cabinet.h + 10)
+    ctx.fillText("Cabinet", cabinet.x + 10, cabinet.h + 10);
+    image.src = cabinet.image;
+    ctx.drawImage(image, cabinet.x, cabinet.y, cabinet.w, cabinet.h);
     ctx.fillStyle = 'green';
     ctx.fillRect(table.x, table.y, table.w, table.h);
     ctx.strokeRect(table.x, table.y, table.w, table.h);
