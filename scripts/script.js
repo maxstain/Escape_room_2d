@@ -10,6 +10,8 @@ var cabinetImg = new Image();
 var floorImg = new Image();
 var tableImg = new Image();
 var doorImg = new Image();
+var InvCaseImg = new Image();
+var KeyImg = new Image();
 var player = {
     x: this.x,
     y: this.y,
@@ -22,7 +24,7 @@ var cabinet = {
     y: 0,
     w: 60,
     h: 40,
-    inventory: ["wiskey", "key", "knife"],
+    inventory: ["Whiskey", "Key", "Knife"],
     image: "../assets/ER_Cabinet.png",
 }
 
@@ -31,7 +33,7 @@ var table = {
     y: canvHeight / 2 - 20,
     w: 40,
     h: 60,
-    image: "",
+    image: "../assets/ER_Table.png",
 }
 
 var door = {
@@ -59,19 +61,15 @@ function drawInv(inv) {
     let x = 0;
     let y = 20;
     const pad = 40;
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.font = "15px";
     ctx.fillText("Inventory:", 5, 15, 120);
     if (inv.length <= 0) {
         ctx.fillText("Empty", 5, 30, 120);
     } else {
         inv.forEach(elem => {
-            ctx.fillStyle = 'white';
-            ctx.fillRect(x, y, pad, pad);
-            ctx.strokeRect(x, y, pad, pad);
-            ctx.font = "bold";
-            ctx.fillStyle = "black";
-            ctx.fillText(elem, x + 10, y + 20, pad - 10);
+            InvCaseImg.src = `../assets/ER_${elem}.png`;
+            ctx.drawImage(InvCaseImg, x, y, pad, pad);
             x += pad;
         });
     }
@@ -88,8 +86,8 @@ function create() {
     ctx.fillText("Cabinet", cabinet.x + 10, cabinet.h + 10);
     cabinetImg.src = cabinet.image;
     ctx.drawImage(cabinetImg, cabinet.x, cabinet.y, cabinet.w, cabinet.h);
-    ctx.fillRect(table.x, table.y, table.w, table.h);
-    ctx.strokeRect(table.x, table.y, table.w, table.h);
+    tableImg.src = table.image;
+    ctx.drawImage(tableImg, table.x, table.y, table.w, table.h);
     ctx.fillText("Table", 5, canvHeight / 2 - 25);
     doorImg.src = door.image;
     ctx.drawImage(doorImg, door.x, door.y, door.w, door.h);
@@ -135,7 +133,7 @@ function movePlayer(e) {
             break;
         }
     }
-    if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem == "key"))) {
+    if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem == "Key"))) {
         ans = prompt("what's the secret code ?")
         if (ans == 33070) {
             for (let i = 0; i < cabinet.inventory.length; i++) {
@@ -157,7 +155,7 @@ function movePlayer(e) {
     }
     for (let i = 131; i < 191; i++) {
         if ((player.x + player.w == door.x + door.w) && (player.y == door.y)) {
-            if (player.inventory.find(elem => elem == "key")) {
+            if (player.inventory.find(elem => elem == "Key")) {
                 alert("You have escaped successfully");
                 document.location.href = "../finish.html";
                 break;
