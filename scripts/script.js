@@ -6,7 +6,10 @@ var x = canvWidth / 2;
 var y = canvHeight / 2;
 var dx = 2;
 var dy = 2;
-var image = new Image();
+var cabinetImg = new Image();
+var floorImg = new Image();
+var tableImg = new Image();
+var doorImg = new Image();
 var player = {
     x: this.x,
     y: this.y,
@@ -28,6 +31,7 @@ var table = {
     y: canvHeight / 2 - 20,
     w: 40,
     h: 60,
+    image: "",
 }
 
 var door = {
@@ -35,6 +39,7 @@ var door = {
     y: canvHeight / 2 - 20,
     w: 10,
     h: 60,
+    image: "../assets/ER_Door.png",
 }
 
 let msg = "Search the place for clues to find the key to open the door";
@@ -73,28 +78,22 @@ function drawInv(inv) {
 }
 
 function clear() {
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvWidth, canvHeight);
-    ctx.strokeRect(0, 0, canvWidth, canvHeight);
-    //ctx.drawImage("../assets/ER_Floor.png",0,0,canvWidth,canvHeight);
+    floorImg.src = "../assets/ER_Floor.png";
+    ctx.drawImage(floorImg, 0, 0, canvWidth, canvHeight);
 }
 
 function create() {
-    ctx.fillStyle = 'red';
-    ctx.fillRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
-    ctx.strokeRect(cabinet.x, cabinet.y, cabinet.w, cabinet.h);
+    ctx.fillStyle = 'White';
+    ctx.font = "bold";
     ctx.fillText("Cabinet", cabinet.x + 10, cabinet.h + 10);
-    image.src = cabinet.image;
-    ctx.drawImage(image, cabinet.x, cabinet.y, cabinet.w, cabinet.h);
-    ctx.fillStyle = 'green';
+    cabinetImg.src = cabinet.image;
+    ctx.drawImage(cabinetImg, cabinet.x, cabinet.y, cabinet.w, cabinet.h);
     ctx.fillRect(table.x, table.y, table.w, table.h);
     ctx.strokeRect(table.x, table.y, table.w, table.h);
     ctx.fillText("Table", 5, canvHeight / 2 - 25);
-    ctx.fillStyle = 'brown';
-    ctx.fillRect(door.x, door.y, door.w, door.h);
-    ctx.strokeRect(door.x, door.y, door.w, door.h);
+    doorImg.src = door.image;
+    ctx.drawImage(doorImg, door.x, door.y, door.w, door.h);
     ctx.fillText("Door", canvWidth - 30, canvHeight / 2 - 25);
-    ctx.fillStyle = "black";
     ctx.fillText(msg, 10, canvHeight - 10);
 }
 
