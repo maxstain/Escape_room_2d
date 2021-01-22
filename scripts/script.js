@@ -24,7 +24,19 @@ var cabinet = {
     y: 0,
     w: 60,
     h: 40,
-    inventory: ["Whiskey", "Key", "Knife"],
+    inventory: [{
+            name: "Whiskey",
+            link: "../assets/ER_Whiskey.png",
+        },
+        {
+            name: "Key",
+            link: "../assets/ER_Key.png",
+        },
+        {
+            name: "Knife",
+            link: "../assets/ER_Knife.png",
+        }
+    ],
     image: "../assets/ER_Cabinet.png",
 }
 
@@ -46,7 +58,8 @@ var door = {
 
 let msg = "Search the place for clues to find the key to open the door";
 
-console.log(player.inventory);
+console.log("Player: ", player.inventory);
+console.log("Cabinet: ", cabinet.inventory);
 
 function start() {
     create();
@@ -68,7 +81,7 @@ function drawInv(inv) {
         ctx.fillText("Empty", 5, 30, 120);
     } else {
         inv.forEach(elem => {
-            InvCaseImg.src = `../assets/ER_${elem}.png`;
+            InvCaseImg.src = elem.link;
             ctx.drawImage(InvCaseImg, x, y, pad, pad);
             x += pad;
         });
@@ -133,7 +146,7 @@ function movePlayer(e) {
             break;
         }
     }
-    if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem == "Key"))) {
+    if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem.name == "Key"))) {
         ans = prompt("what's the secret code ?")
         if (ans == 33070) {
             for (let i = 0; i < cabinet.inventory.length; i++) {
@@ -155,7 +168,7 @@ function movePlayer(e) {
     }
     for (let i = 131; i < 191; i++) {
         if ((player.x + player.w == door.x + door.w) && (player.y == door.y)) {
-            if (player.inventory.find(elem => elem == "Key")) {
+            if (player.inventory.find(elem => elem.name == "Key")) {
                 alert("You have escaped successfully");
                 document.location.href = "../finish.html";
                 break;
