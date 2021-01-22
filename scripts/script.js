@@ -81,8 +81,10 @@ function drawInv(inv) {
         ctx.fillText("Empty", 5, 30, 120);
     } else {
         inv.forEach(elem => {
+            InvCaseImg.src = "";
             InvCaseImg.src = elem.link;
             ctx.drawImage(InvCaseImg, x, y, pad, pad);
+            ctx.fillText(elem.name, x, y + pad + 10);
             x += pad;
         });
     }
