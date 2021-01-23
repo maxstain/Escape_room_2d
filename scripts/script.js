@@ -6,6 +6,7 @@ var x = canvWidth / 2;
 var y = canvHeight / 2;
 var dx = 2;
 var dy = 2;
+var audio = new Audio();
 var cabinetImg = new Image();
 var floorImg = new Image();
 var tableImg = new Image();
@@ -122,42 +123,52 @@ function draw(x, y, w, h) {
 document.addEventListener('keydown', movePlayer);
 
 function movePlayer(e) {
+    var direction;
     var key = e.key;
     switch (key) {
         case "ArrowUp": {
             if (player.y != 0) {
                 player.y -= dy;
+                direction = "up";
             }
             break;
         }
         case "ArrowLeft": {
             if (player.x != 0) {
                 player.x -= dx;
+                direction = "left";
             }
             break;
         }
         case "ArrowDown": {
             if (player.y != canvHeight - 20) {
                 player.y += dy;
+                direction = "down";
             }
             break;
         }
         case "ArrowRight": {
             if (player.x != canvWidth - 20) {
                 player.x += dx;
+                direction = "right";
             }
             break;
         }
     }
+    console.log('Going', direction);
     if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem.name == "Key"))) {
         ans = prompt("what's the secret code ?")
         if (ans == code) {
+            audio.src = "../sounds/drawer.wav";
+            audio.play();
             for (let i = 0; i < cabinet.inventory.length; i++) {
                 player.inventory.push(cabinet.inventory[i]);
             }
             cabinet.inventory.splice(0, cabinet.inventory.length);
             msg = "You have picked up a key";
         } else {
+            audio.src = "../sounds/door-locked.wav";
+            audio.play();
             msg = "Wrong answer, try again"
         }
         console.log("Cabinet: ");
@@ -166,16 +177,22 @@ function movePlayer(e) {
         console.log(player.inventory);
     }
     if (player.x == table.x && player.y == table.y) {
+        audio.src = "../sounds/paper-turn-over.wav";
+        audio.play();
         alert(`The code is ${code}`);
         msg = "you have found a clue";
     }
     for (let i = 131; i < 191; i++) {
         if ((player.x + player.w == door.x + door.w) && (player.y == door.y)) {
             if (player.inventory.find(elem => elem.name == "Key")) {
+                audio.src = "../sounds/door_unlock.wav";
+                audio.play();
                 alert("You have escaped successfully");
                 document.location.href = "../finish.html";
                 break;
             } else {
+                audio.src = "../sounds/door-locked.wav";
+                audio.play();
                 alert("Door is locked");
                 break;
             }
