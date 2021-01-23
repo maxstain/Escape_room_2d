@@ -11,7 +11,7 @@ var floorImg = new Image();
 var tableImg = new Image();
 var doorImg = new Image();
 var InvCaseImg = new Image();
-var InvImg = new Image();
+var KeyImg = new Image();
 var player = {
     x: this.x,
     y: this.y,
@@ -64,9 +64,30 @@ console.log("Cabinet: ", cabinet.inventory);
 function start() {
     create();
     draw(player.x, player.y, player.w, player.h);
+    drawInv(player.inventory);
     setTimeout(() => {
         start();
     }, 10);
+}
+
+function drawInv(inv) {
+    let x = 0;
+    let y = 20;
+    const pad = 40;
+    ctx.fillStyle = "white";
+    ctx.font = "15px";
+    ctx.fillText("Inventory:", 5, 15, 120);
+    if (inv.length <= 0) {
+        ctx.fillText("Empty", 5, 30, 120);
+    } else {
+        inv.forEach(elem => {
+            InvCaseImg.src = "";
+            InvCaseImg.src = elem.link;
+            ctx.drawImage(InvCaseImg, x, y, pad, pad);
+            ctx.fillText(elem.name, x, y + pad + 10);
+            x += pad;
+        });
+    }
 }
 
 function clear() {
@@ -87,9 +108,6 @@ function create() {
     ctx.drawImage(doorImg, door.x, door.y, door.w, door.h);
     ctx.fillText("Door", canvWidth - 30, canvHeight / 2 - 25);
     ctx.fillText(msg, 10, canvHeight - 10);
-    InvImg.src = "../assets/ER_Inventory.png";
-    ctx.drawImage(InvImg, 5, 10, 40, 40);
-    ctx.fillText("Inventory", 5, 60);
 }
 
 function draw(x, y, w, h) {
@@ -164,38 +182,19 @@ function movePlayer(e) {
     }
 }
 
-function drawInv(inv) {
-    let x = 5;
-    let y = 20;
-    const pad = 40;
-    ctx.fillStyle = "white";
-    ctx.font = "15px";
-    if (inv.length <= 0) {
-        ctx.fillText("Empty", 5, 30, 120);
-    } else {
-        inv.forEach(elem => {
-            InvCaseImg.src = "";
-            InvCaseImg.src = elem.link;
-            ctx.drawImage(InvCaseImg, x, y, pad, pad);
-            ctx.fillText(elem.name, x, y + pad + 10);
-            x += pad;
-        });
-    }
-}
-
-document.addEventListener("click", (e) => {
+/* document.addEventListener("click", (e) => {
     var mouseX = e.clientX;
     var mouseY = e.clientY;
-    var x = 5;
-    var y = 10;
-    for (let i = x; i < x + 40; i++) {
-        for (let j = y; j < y + 40; j++) {
-            if ((mouseX == i) && (mouseY == j)) {
-                drawInv(player.inventory);
-                console.log(1);
+    for (let i = 131; i < 191; i++) {
+        if ((mouseX == canvWidth - 2) && (mouseY == canvHeight - i)) {
+            if (player.inventory.find(elem => elem == "key")) {
+                alert("You have escaped successfully");
+                document.location.href = "../finish.html";
+            } else {
+                alert("Door is locked");
             }
         }
     }
-});
+}); */
 
 start();
