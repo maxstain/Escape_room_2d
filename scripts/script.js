@@ -57,6 +57,7 @@ var door = {
 }
 
 let msg = "Search the place for clues to find the key to open the door";
+let code = Math.floor(Math.random() * 99999) + 1;
 
 console.log("Player: ", player.inventory);
 console.log("Cabinet: ", cabinet.inventory);
@@ -150,7 +151,7 @@ function movePlayer(e) {
     }
     if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem.name == "Key"))) {
         ans = prompt("what's the secret code ?")
-        if (ans == 33070) {
+        if (ans == code) {
             for (let i = 0; i < cabinet.inventory.length; i++) {
                 player.inventory.push(cabinet.inventory[i]);
             }
@@ -165,7 +166,7 @@ function movePlayer(e) {
         console.log(player.inventory);
     }
     if (player.x == table.x && player.y == table.y) {
-        alert("The code is 33070");
+        alert(`The code is ${code}`);
         msg = "you have found a clue";
     }
     for (let i = 131; i < 191; i++) {
