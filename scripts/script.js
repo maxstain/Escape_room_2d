@@ -188,9 +188,12 @@ document.addEventListener("click", (e) => {
     var mouseY = e.clientY;
     var x = 5;
     var y = 10;
-    for (let i = y; i < y + 40; i++) {
-        if ((mouseX == x) && (mouseY == i)) {
-            drawInv(player.inventory);
+    for (let i = x; i < x + 40; i++) {
+        for (let j = y; j < y + 40; j++) {
+            if ((mouseX == i) && (mouseY == j)) {
+                drawInv(player.inventory);
+                console.log(1);
+            }
         }
     }
 });
