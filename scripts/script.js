@@ -122,6 +122,8 @@ function draw(x, y, img) {
     ctx.fillStyle = 'white';
     ctx.fillRect(x, y, 5, 5);
     ctx.strokeRect(x, y, 5, 5);
+    ctx.fillRect(x + 60, y, 5, 5);
+    ctx.strokeRect(x + 60, y, 5, 5);
 }
 
 document.addEventListener('keydown', movePlayer);
