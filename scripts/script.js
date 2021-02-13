@@ -19,7 +19,7 @@ var player = {
     y: this.y,
     w: 20,
     h: 20,
-    image: "../assets/player.png",
+    image: null,
     inventory: [],
 };
 var cabinet = {
@@ -67,7 +67,7 @@ console.log("Cabinet: ", cabinet.inventory);
 
 function start() {
     create();
-    draw(player.x, player.y, player.image);
+    draw(player.x, player.y);
     drawInv(player.inventory);
     setTimeout(() => {
         start();
@@ -114,16 +114,16 @@ function create() {
     ctx.fillText(msg, 10, canvHeight - 10);
 }
 
-function draw(x, y, img) {
+function draw(x, y) {
     clear();
     create();
-    PlayerImg.src = img;
+    PlayerImg.src = "../assets/player.png";
     ctx.drawImage(PlayerImg, x, y);
     ctx.fillStyle = 'white';
-    ctx.fillRect(x, y, 5, 5);
-    ctx.strokeRect(x, y, 5, 5);
-    ctx.fillRect(x + 60, y, 5, 5);
-    ctx.strokeRect(x + 60, y, 5, 5);
+    ctx.fillRect(x + 15, y, 5, 5);
+    ctx.strokeRect(x + 15, y, 5, 5);
+    ctx.fillRect(x + 40, y, 5, 5);
+    ctx.strokeRect(x + 40, y, 5, 5);
 }
 
 document.addEventListener('keydown', movePlayer);
@@ -157,11 +157,14 @@ function movePlayer(e) {
             if (player.x != canvWidth - 20) {
                 player.x += dx;
                 direction = "right";
+                PlayerImg.src = "../assets/Player_right.gif";
+                ctx.drawImage(PlayerImg, player.x, player.y);
             }
             break;
         }
     }
     console.log('Going', direction);
+
     if ((player.x == cabinet.x) && (player.y == cabinet.y) && (cabinet.inventory.find(elem => elem.name == "Key"))) {
         ans = prompt("what's the secret code ?")
         if (ans == code) {
