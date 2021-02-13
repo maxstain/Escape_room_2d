@@ -13,11 +13,13 @@ var tableImg = new Image();
 var doorImg = new Image();
 var InvCaseImg = new Image();
 var KeyImg = new Image();
+var PlayerImg = new Image();
 var player = {
     x: this.x,
     y: this.y,
     w: 20,
     h: 20,
+    image: "../assets/player.png",
     inventory: [],
 };
 var cabinet = {
@@ -65,7 +67,7 @@ console.log("Cabinet: ", cabinet.inventory);
 
 function start() {
     create();
-    draw(player.x, player.y, player.w, player.h);
+    draw(player.x, player.y, player.image);
     drawInv(player.inventory);
     setTimeout(() => {
         start();
@@ -112,12 +114,14 @@ function create() {
     ctx.fillText(msg, 10, canvHeight - 10);
 }
 
-function draw(x, y, w, h) {
+function draw(x, y, img) {
     clear();
     create();
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(x, y, w, h);
-    ctx.strokeRect(x, y, w, h);
+    PlayerImg.src = img;
+    ctx.drawImage(PlayerImg, x, y);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(x, y, 5, 5);
+    ctx.strokeRect(x, y, 5, 5);
 }
 
 document.addEventListener('keydown', movePlayer);
