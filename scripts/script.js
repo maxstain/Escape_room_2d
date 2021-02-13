@@ -157,8 +157,6 @@ function movePlayer(e) {
             if (player.x != canvWidth - 20) {
                 player.x += dx;
                 direction = "right";
-                PlayerImg.src = "../assets/Player_right.gif";
-                ctx.drawImage(PlayerImg, player.x, player.y);
             }
             break;
         }
